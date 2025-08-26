@@ -409,75 +409,72 @@
             </section>
 
             <!-- Contact Form -->
-<section id="contact" class="mb-24 md:mb-32 reveal">
-  <h3 class="text-3xl font-bold text-center mb-8">Hubungi Saya</h3>
-  <form 
-    id="contact-form" 
-    class="max-w-xl mx-auto space-y-4"
-    action="https://formspree.io/f/xzzabdqy" 
-    method="POST"
-  >
-    <input 
-      type="text" 
-      name="name" 
-      placeholder="Nama Anda" 
-      class="form-input w-full p-3 rounded-lg" 
-      required
-    >
-    <input 
-      type="email" 
-      name="email" 
-      placeholder="Email Anda" 
-      class="form-input w-full p-3 rounded-lg" 
-      required
-    >
-    <textarea 
-      name="message" 
-      placeholder="Pesan Anda" 
-      rows="5" 
-      class="form-input w-full p-3 rounded-lg" 
-      required
-    ></textarea>
+            <section id="contact" class="mb-24 md:mb-32 reveal">
+                <h3 class="text-3xl font-bold text-center mb-8">Hubungi Saya</h3>
+                    <form 
+                        id="contact-form" 
+                        class="max-w-xl mx-auto space-y-4"
+                        action="https://formspree.io/f/xzzabdqy" 
+                        method="POST"
+                        >
+                    <input 
+                        type="text" 
+                        name="name" 
+                        placeholder="Nama Anda" 
+                        class="form-input w-full p-3 rounded-lg" 
+                        required
+                        >
+                    <input 
+                        type="email" 
+                        name="email" 
+                        placeholder="Email Anda" 
+                        class="form-input w-full p-3 rounded-lg" 
+                        required
+                        >
+                    <textarea 
+                        name="message" 
+                        placeholder="Pesan Anda" 
+                        rows="5" 
+                        class="form-input w-full p-3 rounded-lg" 
+                        required
+                        >
+                    </textarea>
+                    <button 
+                        type="submit" 
+                        class="contact-btn w-full text-white font-bold py-3 px-6 rounded-lg shadow-lg" 
+                        style="background-color: var(--accent-color-1);"
+                    >
+                        Kirim Pesan
+                    </button>
     
-    <button 
-      type="submit" 
-      class="contact-btn w-full text-white font-bold py-3 px-6 rounded-lg shadow-lg" 
-      style="background-color: var(--accent-color-1);"
-    >
-      Kirim Pesan
-    </button>
-    
-    <p id="form-success" class="text-center hidden" style="color: var(--accent-color-1);">
-      Terima kasih! Pesan Anda telah terkirim.
-    </p>
-  </form>
-</section>
+                        <p id="form-success" class="text-center hidden" style="color: var(--accent-color-1);">
+                        Terima kasih! Pesan Anda telah terkirim.
+                    </p>
+                    </form>
+                    </section>
 
-<script>
-  const form = document.getElementById('contact-form');
-  const successMsg = document.getElementById('form-success');
+                <script>
+                        const form = document.getElementById('contact-form');
+                        const successMsg = document.getElementById('form-success');
 
-  form.addEventListener('submit', async function(e) {
-    e.preventDefault(); // biar tidak reload halaman
+                    form.addEventListener('submit', async function(e) {
+                        e.preventDefault(); // biar tidak reload halaman
 
-    const formData = new FormData(form);
-    const response = await fetch(form.action, {
-      method: form.method,
-      body: formData,
-      headers: { 'Accept': 'application/json' }
-    });
+                        const formData = new FormData(form);
+                        const response = await fetch(form.action, {
+                            method: form.method,
+                            body: formData,
+                            headers: { 'Accept': 'application/json' }
+                    });
 
-    if (response.ok) {
-      successMsg.classList.remove('hidden');
-      form.reset();
-    } else {
-      alert("Terjadi kesalahan, coba lagi.");
-    }
-  });
-</script>
-
-
-
+                    if (response.ok) {
+                     successMsg.classList.remove('hidden');
+                     form.reset();
+                    } else {
+                     alert("Terjadi kesalahan, coba lagi.");
+                        }
+                    });
+                </script>
         </main>
 
         <footer class="text-center mt-16 md:mt-24 pt-8 border-t" style="border-color: var(--card-border);">
