@@ -300,34 +300,47 @@
             <!-- Contact Form -->
             <section id="contact" class="mb-24 md:mb-32 reveal">
                 <h3 class="text-3xl font-bold text-center mb-8">Hubungi Saya</h3>
-                    <form 
-                        id="contact-form" 
-                        class="max-w-xl mx-auto space-y-4"
-                        action="https://formspree.io/f/xzzabdqy" 
-                        method="POST"
-                        >
+                <form 
+                    id="contact-form" 
+                    class="max-w-xl mx-auto space-y-4"
+                    action="https://formspree.io/f/xzzabdqy" 
+                    method="POST"
+                    autocomplete="off"
+                    novalidate
+                >
+                    <!-- Nama -->
                     <input 
                         type="text" 
                         name="name" 
                         placeholder="Nama Anda" 
                         class="form-input w-full p-3 rounded-lg" 
                         required
-                        >
+                        autocomplete="off"
+                        value=""
+                    >
+            
+                    <!-- Email -->
                     <input 
                         type="email" 
                         name="email" 
                         placeholder="Email Anda" 
                         class="form-input w-full p-3 rounded-lg" 
                         required
-                        >
+                        autocomplete="off"
+                        value=""
+                    >
+            
+                    <!-- Pesan -->
                     <textarea 
                         name="message" 
                         placeholder="Pesan Anda" 
                         rows="5" 
                         class="form-input w-full p-3 rounded-lg" 
-                        required
-                        >
-                    </textarea>
+                        required 
+                        autocomplete="off"
+                    ></textarea>
+            
+                    <!-- Tombol Kirim -->
                     <button 
                         type="submit" 
                         class="contact-btn w-full text-white font-bold py-3 px-6 rounded-lg shadow-lg" 
@@ -335,12 +348,13 @@
                     >
                         Kirim Pesan
                     </button>
-    
-                        <p id="form-success" class="text-center hidden accent-1-color">
+                
+                    <!-- Pesan sukses -->
+                    <p id="form-success" class="text-center hidden accent-1-color">
                         Terima kasih! Pesan Anda telah terkirim.
                     </p>
-                    </form>
-                    </section>
+                </form>
+            </section>
         </main>
 
     <footer class="text-center mt-16 md:mt-24 pt-8 border-t border-border">
