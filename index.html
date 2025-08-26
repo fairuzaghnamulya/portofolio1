@@ -336,14 +336,21 @@
                     </section>
         </main>
 
-        <footer class="text-center mt-16 md:mt-24 pt-8 border-t border-border">
-            <div class="flex justify-center gap-6 mb-4">
-                <a href="#" class="text-2xl transition-all transform hover:scale-125 hover:-translate-y-1 text-muted"><i class="fab fa-github"></i></a>
-                <a href="#" class="text-2xl transition-all transform hover:scale-125 hover:-translate-y-1 text-muted"><i class="fab fa-linkedin"></i></a>
-                <a href="#" class="text-2xl transition-all transform hover:scale-125 hover:-translate-y-1 text-muted"><i class="fab fa-instagram"></i></a>
-            </div>
-            <p class="text-sm text-muted">&copy; 2025 Fairuz Aghna Mulya. Dibuat dengan semangat.</p>
-        </footer>
+    <footer class="text-center mt-16 md:mt-24 pt-8 border-t border-border">
+        <div class="flex justify-center gap-6 mb-4">
+        <a href="#" class="text-2xl transition-all transform hover:scale-125 hover:-translate-y-1 text-muted"><i class="fab fa-github"></i></a>
+        <a href="#" class="text-2xl transition-all transform hover:scale-125 hover:-translate-y-1 text-muted"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="text-2xl transition-all transform hover:scale-125 hover:-translate-y-1 text-muted"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p class="text-sm text-muted">
+            &copy; <span id="year"></span> Fairuz Aghna Mulya. Dibuat dengan semangat.
+        </p>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
     </div>
     
     <div id="modal" class="modal-overlay fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300">
