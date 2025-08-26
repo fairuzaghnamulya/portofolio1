@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fairuz Aghna Mulya - Game Developer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Barlow -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Barlow:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* --- ROOT VARIABLES FOR THEME: MINIMALIST DARK (PURPLE/CYAN) --- */
+        :root {
+            --bg-color: #0A0E14; /* Darker, almost black blue */
+            --text-color: #cdd6f4; /* Softer text color */
+            --text-color-muted: #a6adc8;
+            --heading-color: #ffffff;
+            --accent-gradient: linear-gradient(to right, #89b4fa, #00d4ff); /* Purple to Cyan */
+            --accent-color-1: #89b4fa; /* Purple */
+            --accent-color-2: #00d4ff; /* Cyan */
+            --card-bg: rgba(30, 30, 47, 0.4);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --backdrop-blur: 10px;
+            --scrollbar-thumb: #89b4fa;
+            --scrollbar-track: #0A0E14;
+        }
+
+        /* --- BASE STYLES --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Barlow', sans-serif;
+            color: var(--heading-color);
+        }
+
+        /* --- BACKGROUNDS --- */
+        .animated-bg {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+        }
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(137, 180, 250, 0.15), rgba(10, 14, 20, 0) 60%);
+            animation: pulseGlow 10s infinite alternate;
+        }
+
+        @keyframes moveGrid { from { background-position: 0 0; } to { background-position: 50px 50px; } }
+        @keyframes pulseGlow { from { transform: scale(0.8); opacity: 0.7; } to { transform: scale(1.2); opacity: 1; } }
+
+        /* --- UTILITIES & COMPONENTS --- */
+        .gradient-text { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .typing-cursor { background-color: var(--accent-color-1); animation: blink 0.7s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .glass-card { background: var(--card-bg); backdrop-filter: blur(var(--backdrop-blur)); -webkit-backdrop-filter: blur(var(--backdrop-blur)); border: 1px solid var(--card-border); transition: background-color 0.5s, border-color 0.5s; }
+        .contact-btn { position: relative; overflow: hidden; transition: transform 0.3s ease; z-index: 1; }
+        .contact-btn::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)); transform: translateX(-100%); transition: transform 0.4s ease; z-index: -1; }
+        .contact-btn:hover { transform: scale(1.05); }
+        .contact-btn:hover::before { transform: translateX(0); }
+        .interactive-card { perspective: 1000px; }
+        .interactive-card .card-inner { transition: transform 0.4s ease; }
+        .interactive-card:hover .card-inner { transform: rotateY(5deg) rotateX(5deg) scale(1.02); }
+        .interactive-card .card-overlay { opacity: 0; transition: opacity 0.4s ease; background: linear-gradient(to top, rgba(10, 14, 20, 0.9) 20%, rgba(10, 14, 20, 0) 100%); }
+        .interactive-card:hover .card-overlay { opacity: 1; }
+        .interactive-card .card-content { opacity: 0; transition: opacity 0.4s ease; }
+        .interactive-card:hover .card-content { opacity: 1; }
+        .modal-overlay { background: rgba(10, 14, 20, 0.8); backdrop-filter: blur(8px); }
+        .modal-content { background-color: #1e1e2e; border: 1px solid var(--card-border); }
+        .modal-close:hover { color: var(--accent-color-1); transform: rotate(90deg); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+        ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 10px; }
+        
+        /* --- TIMELINE --- */
+        .timeline { position: relative; }
+        .timeline::before { content: ''; position: absolute; left: 1rem; top: 0; bottom: 0; width: 2px; background-color: var(--card-border); }
+        .timeline-item { position: relative; padding-left: 3rem; margin-bottom: 2.5rem; }
+        .timeline-dot { position: absolute; left: 0; top: 0.25rem; height: 2rem; width: 2rem; display: flex; align-items: center; justify-content: center; background-color: var(--bg-color); border: 2px solid var(--accent-color-2); border-radius: 50%; }
+        
+        /* --- CONTACT FORM --- */
+        .form-input { background: var(--card-bg); border: 1px solid var(--card-border); transition: border-color 0.3s, box-shadow 0.3s; }
+        .form-input:focus { outline: none; border-color: var(--accent-color-1); box-shadow: 0 0 10px rgba(137, 180, 250, 0.5); }
+
+        /* --- MARQUEE --- */
+        .marquee-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            overflow: hidden;
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .marquee {
+            display: flex;
+            flex-shrink: 0;
+            gap: 1rem;
+        }
+        .marquee-left {
+            animation: scroll-left 40s linear infinite;
+        }
+        .marquee-right {
+            animation: scroll-right 40s linear infinite;
+        }
+        @keyframes scroll-left {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+        }
+        @keyframes scroll-right {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Backgrounds -->
+    <div class="animated-bg"></div>
+
+    <div class="relative container mx-auto max-w-5xl px-6 sm:px-8 md:px-12 py-12 md:py-20">
+
+        <header class="text-center mb-24 md:mb-32 reveal">
+            <img src="https://placehold.co/128x128/89b4fa/0A0E14?text=FA" alt="Foto Profil Fairuz Aghna" class="w-32 h-32 rounded-full mx-auto mb-6 border-4" style="border-color: var(--accent-color-2);">
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight">Fairuz Aghna Mulya</h1>
+            <h2 class="text-xl md:text-2xl font-semibold mt-2 h-8">
+                <span id="typing-text" class="gradient-text"></span><span class="typing-cursor inline-block w-1 h-6 ml-1 align-middle"></span>
+            </h2>
+            <p class="max-w-2xl mx-auto mt-4" style="color: var(--text-color-muted);">
+                Siswa kelas 11 di SMKN 1 Bawang dengan semangat tinggi untuk menciptakan pengalaman bermain game yang imersif dan menyenangkan.
+            </p>
+            <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="fairuzaghnamulya1459@gmail.com" class="contact-btn glass-card w-full sm:w-auto text-white font-bold py-3 px-6 rounded-lg shadow-lg inline-block">
+                    <i class="fas fa-envelope mr-2"></i> Hubungi Saya
+                </a>
+                <a href=".\assets\19675-Fairuz-CV-P5.pdf" class="contact-btn glass-card w-full sm:w-auto text-white font-bold py-3 px-6 rounded-lg shadow-lg inline-block">
+                    <i class="fas fa-download mr-2"></i> Download CV
+                </a>
+            </div>
+        </header>
+
+        <main>
+            <!-- Animated Stats -->
+            <section class="mb-24 md:mb-32 grid grid-cols-2 md:grid-cols-4 gap-8 text-center reveal">
+                <div>
+                    <h3 class="text-4xl font-bold gradient-text mb-1"><span class="stat-counter" data-target="4">0</span>+</h3>
+                    <p style="color: var(--text-color-muted);">Proyek Selesai</p>
+                </div>
+                <div>
+                    <h3 class="text-4xl font-bold gradient-text mb-1"><span class="stat-counter" data-target="1">0</span>+</h3>
+                    <p style="color: var(--text-color-muted);">Tahun Pengalaman</p>
+                </div>
+                <div>
+                    <h3 class="text-4xl font-bold gradient-text mb-1"><span class="stat-counter" data-target="700">0</span>+</h3>
+                    <p style="color: var(--text-color-muted);">Jam Koding</p>
+                </div>
+                <div>
+                    <h3 class="text-4xl font-bold gradient-text mb-1"><span class="stat-counter" data-target="3">0</span>+</h3>
+                    <p style="color: var(--text-color-muted);">Sertifikat</p>
+                </div>
+            </section>
+
+            <section id="about" class="mb-24 md:mb-32 reveal">
+                <h3 class="text-3xl font-bold mb-6 border-b-2 pb-2 inline-block" style="border-color: var(--accent-color-1);">Tentang Saya</h3>
+                <div class="leading-relaxed text-lg space-y-4" style="color: var(--text-color-muted);">
+                    <p>Sejak kecil, saya selalu terpesona dengan dunia game. Bukan hanya sebagai pemain, tetapi juga bagaimana sebuah ide bisa diubah menjadi dunia interaktif yang kompleks. Rasa penasaran ini mendorong saya untuk belajar di SMKN 1 Bawang, di mana saya bisa benar-benar mendalami proses kreatif dan teknis di balik layar.</p>
+                    <p>Saya sangat menikmati setiap tahap pengembangan, mulai dari menerjemahkan cerita menjadi mekanik gameplay yang seru, mendesain level yang menantang namun adil, hingga memoles detail visual yang membuat sebuah game terasa hidup. Bagi saya, game adalah perpaduan sempurna antara seni dan teknologi, dan saya bersemangat untuk terus belajar dan berkontribusi di industri ini.</p>
+                </div>
+            </section>
+
+            <!-- Experience Timeline -->
+    <section id="experience" class="mb-24 md:mb-32 reveal">
+            <h3 class="text-3xl font-bold text-center mb-12">Pengalaman</h3>
+            <div class="timeline max-w-2xl mx-auto">
+                <div class="timeline-item">
+                    <div class="timeline-dot"><i class="fas fa-briefcase"></i></div>
+                    <p class="font-semibold text-sm" style="color: var(--accent-color-2);">Nov 2023 - Feb 2024</p>
+                    <h4 class="text-xl font-bold mt-1">Peserta Kelas Industri</h4>
+                    <p class="font-medium mb-2" style="color: var(--text-color-muted);">Kelas Karir Anak Indonesia, Semarang</p>
+                    <p style="color: var(--text-color-muted);" class="text-sm">Mengikuti program Kelas Industri yang berfokus pada pengembangan kompetensi profesional untuk pasar digital global. Selama program, dibimbing untuk mengembangkan karakter, keterampilan teknis, dan manajemen usaha. Dikenal sebagai peserta yang rajin dan mampu menyelesaikan tugas dengan cepat, serta terus menunjukkan progres dalam peningkatan skill teknis maupun non-teknis.</p>
+                </div>
+        </section>
+
+            <!-- PERUBAHAN: Skills Section with Marquee -->
+            <section id="skills" class="mb-24 md:mb-32 reveal">
+                <h3 class="text-3xl font-bold text-center mb-8">Teknologi & Keahlian</h3>
+                <div class="marquee-container">
+                    <!-- Baris 1 -> Kiri -->
+                    <div class="flex marquee-left">
+                        <div class="marquee">
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-unity text-2xl" style="color: var(--accent-color-2);"></i> Unity</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-code text-2xl" style="color: var(--accent-color-2);"></i> C#</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-python text-2xl" style="color: var(--accent-color-2);"></i> Python</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-react text-2xl" style="color: var(--accent-color-2);"></i> React</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-docker text-2xl" style="color: var(--accent-color-2);"></i> Docker</div>
+                        </div>
+                        <div class="marquee">
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-unity text-2xl" style="color: var(--accent-color-2);"></i> Unity</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-code text-2xl" style="color: var(--accent-color-2);"></i> C#</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-python text-2xl" style="color: var(--accent-color-2);"></i> Python</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-react text-2xl" style="color: var(--accent-color-2);"></i> React</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-docker text-2xl" style="color: var(--accent-color-2);"></i> Docker</div>
+                        </div>
+                    </div>
+                    <!-- Baris 2 -> Kanan -->
+                    <div class="flex marquee-right">
+                        <div class="marquee">
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-cube text-2xl" style="color: var(--accent-color-1);"></i> Blender</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-palette text-2xl" style="color: var(--accent-color-1);"></i> Photoshop</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-figma text-2xl" style="color: var(--accent-color-1);"></i> Figma</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-pen-ruler text-2xl" style="color: var(--accent-color-1);"></i> UI/UX Design</div>
+                        </div>
+                        <div class="marquee">
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-cube text-2xl" style="color: var(--accent-color-1);"></i> Blender</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-palette text-2xl" style="color: var(--accent-color-1);"></i> Photoshop</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-figma text-2xl" style="color: var(--accent-color-1);"></i> Figma</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-pen-ruler text-2xl" style="color: var(--accent-color-1);"></i> UI/UX Design</div>
+                        </div>
+                    </div>
+                    <!-- Baris 3 -> Kiri -->
+                    <div class="flex marquee-left">
+                        <div class="marquee">
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-git-alt text-2xl" style="color: var(--accent-color-2);"></i> Git & Github</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-database text-2xl" style="color: var(--accent-color-2);"></i> SQL</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-js text-2xl" style="color: var(--accent-color-2);"></i> JavaScript</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-html5 text-2xl" style="color: var(--accent-color-2);"></i> HTML5</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-css3-alt text-2xl" style="color: var(--accent-color-2);"></i> CSS3</div>
+                        </div>
+                        <div class="marquee">
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-git-alt text-2xl" style="color: var(--accent-color-2);"></i> Git & Github</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-database text-2xl" style="color: var(--accent-color-2);"></i> SQL</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-js text-2xl" style="color: var(--accent-color-2);"></i> JavaScript</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-html5 text-2xl" style="color: var(--accent-color-2);"></i> HTML5</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-css3-alt text-2xl" style="color: var(--accent-color-2);"></i> CSS3</div>
+                        </div>
+                    </div>
+                    <!-- Baris 4 -> Kanan -->
+                     <div class="flex marquee-right">
+                        <div class="marquee">
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-wind text-2xl" style="color: var(--accent-color-1);"></i> TailwindCSS</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-cogs text-2xl" style="color: var(--accent-color-1);"></i> Game Mechanics</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-lightbulb text-2xl" style="color: var(--accent-color-1);"></i> Problem Solving</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-sitemap text-2xl" style="color: var(--accent-color-1);"></i> Agile Method</div>
+                        </div>
+                        <div class="marquee">
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-wind text-2xl" style="color: var(--accent-color-1);"></i> TailwindCSS</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-cogs text-2xl" style="color: var(--accent-color-1);"></i> Game Mechanics</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-lightbulb text-2xl" style="color: var(--accent-color-1);"></i> Problem Solving</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-sitemap text-2xl" style="color: var(--accent-color-1);"></i> Agile Method</div>
+                        </div>
+                    </div>
+                    <!-- Baris 5 -> Kiri -->
+                    <div class="flex marquee-left">
+                        <div class="marquee">
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-unity text-2xl" style="color: var(--accent-color-2);"></i> Unity</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-code text-2xl" style="color: var(--accent-color-2);"></i> C#</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-python text-2xl" style="color: var(--accent-color-2);"></i> Python</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-react text-2xl" style="color: var(--accent-color-2);"></i> React</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-docker text-2xl" style="color: var(--accent-color-2);"></i> Docker</div>
+                        </div>
+                        <div class="marquee">
+                           <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-unity text-2xl" style="color: var(--accent-color-2);"></i> Unity</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-code text-2xl" style="color: var(--accent-color-2);"></i> C#</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-python text-2xl" style="color: var(--accent-color-2);"></i> Python</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-react text-2xl" style="color: var(--accent-color-2);"></i> React</div>
+                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-docker text-2xl" style="color: var(--accent-color-2);"></i> Docker</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="mb-24 md:mb-32 reveal">
+                <h3 class="text-3xl font-bold text-center mb-8">Proyek Unggulan</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="interactive-card glass-card rounded-xl overflow-hidden group relative"
+                         data-modal-type="project"
+                         data-img=".\assets\my-live-currency.png"
+                         data-title="Live Currencyy" data-tech="HTML, CSS, JavaScript"
+                         data-desc="Cosmic Odyssey adalah game RPG petualangan luar angkasa dengan sistem pertarungan yang unik. Saya bertanggung jawab penuh atas pemrograman mekanik inti, desain level, dan implementasi aset 3D.">
+                        <div class="card-inner">
+                            <img src=".\assets\my-live-currency.png" alt="Gambar Proyek 1" class="w-full h-80 object-cover">
+                            <div class="card-overlay absolute inset-0"></div>
+                            <div class="card-content absolute bottom-0 left-0 p-6 w-full">
+                                <h4 class="text-2xl font-bold text-white mb-2">Live Currency</h4>
+                                <button class="open-modal-btn font-semibold transition-all" style="color: var(--accent-color-1);">Lihat Detail <i class="fas fa-arrow-right ml-1"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="interactive-card glass-card rounded-xl overflow-hidden group relative"
+                         data-modal-type="project"
+                         data-img=".\assets\linkq.png"
+                         data-title="Cybernetic Assets Pack" data-tech="Blender, Photoshop"
+                         data-desc="Kumpulan aset 3D bertema cyberpunk yang saya buat. Semua model dibuat dari awal menggunakan Blender, dari modeling hingga texturing. Tujuannya adalah menciptakan aset yang 'low-poly' namun tetap detail.">
+                        <div class="card-inner">
+                            <img src=".\assets\linkq.png" alt="Gambar Proyek 2" class="w-full h-80 object-cover">
+                            <div class="card-overlay absolute inset-0"></div>
+                            <div class="card-content absolute bottom-0 left-0 p-6 w-full">
+                                <h4 class="text-2xl font-bold text-white mb-2">Cybernetic Assets Pack</h4>
+                                <button class="open-modal-btn font-semibold transition-all" style="color: var(--accent-color-1);">Lihat Detail <i class="fas fa-arrow-right ml-1"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="certificates" class="mb-24 md:mb-32 reveal">
+                <h3 class="text-3xl font-bold text-center mb-8">Sertifikat & Penghargaan</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="interactive-card glass-card rounded-xl overflow-hidden group relative"
+                         data-modal-type="certificate"
+                         data-img=".\assets\sertifikat_dasar_ai.jpg"
+                         data-title="Dasar-Dasar Kecerdasan Buatan (AI)"
+                         data-issuer="Dicoding"
+                         data-year="2024"
+                         data-pdf-url=".\assets\sertifikat_dasar_ai.pdf">
+                        <div class="card-inner">
+                            <img src=".\assets\sertifikat_dasar_ai.jpg" alt="Sertifikat Dasar-Dasar Kecerdasan Buatan" class="w-full h-56 object-cover">
+                            <div class="card-overlay absolute inset-0"></div>
+                            <div class="card-content absolute bottom-0 left-0 p-6 w-full">
+                                <h4 class="text-lg font-bold text-white mb-1">Dasar-Dasar Kecerdasan Buatan</h4>
+                                <button class="open-modal-btn font-semibold transition-all text-sm" style="color: var(--accent-color-1);">Lihat Detail <i class="fas fa-arrow-right ml-1"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="interactive-card glass-card rounded-xl overflow-hidden group relative"
+                         data-modal-type="certificate"
+                         data-img=".\assets\sertifikat_python.jpg"
+                         data-title="Memulai Pemrograman Dengan Python"
+                         data-issuer="Dicoding"
+                         data-year="2024"
+                         data-pdf-url=".\assets\sertifikat_python.pdf">
+                        <div class="card-inner">
+                            <img src=".\assets\sertifikat_python.jpg" alt="Sertifikat Python" class="w-full h-56 object-cover">
+                            <div class="card-overlay absolute inset-0"></div>
+                            <div class="card-content absolute bottom-0 left-0 p-6 w-full">
+                                <h4 class="text-lg font-bold text-white mb-1">Memulai Pemrograman Dengan Python</h4>
+                                <button class="open-modal-btn font-semibold transition-all text-sm" style="color: var(--accent-color-1);">Lihat Detail <i class="fas fa-arrow-right ml-1"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="interactive-card glass-card rounded-xl overflow-hidden group relative"
+                         data-modal-type="certificate"
+                         data-img=".\assets\sertifikat_dasar_aws.jpg"
+                         data-title="Cloud Practitioner Essentials (Belajar AWS Cloud)"
+                         data-issuer="Dicoding"
+                         data-year="2024"
+                         data-pdf-url=".\assets\sertifikat_dasar_aws.pdf">
+                        <div class="card-inner">
+                            <img src=".\assets\sertifikat_dasar_aws.jpg" alt="Sertifikat LKS" class="w-full h-56 object-cover">
+                            <div class="card-overlay absolute inset-0"></div>
+                            <div class="card-content absolute bottom-0 left-0 p-6 w-full">
+                                <h4 class="text-lg font-bold text-white mb-1">Cloud Practitioner Essentials (Belajar AWS Cloud)</h4>
+                                <button class="open-modal-btn font-semibold transition-all text-sm" style="color: var(--accent-color-1);">Lihat Detail <i class="fas fa-arrow-right ml-1"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Form -->
+            <section id="contact" class="mb-24 md:mb-32 reveal">
+                <h3 class="text-3xl font-bold text-center mb-8">Hubungi Saya</h3>
+                <form id="contact-form" class="max-w-xl mx-auto space-y-4">
+                    <input type="text" placeholder="Nama Anda" class="form-input w-full p-3 rounded-lg" required>
+                    <input type="email" placeholder="Email Anda" class="form-input w-full p-3 rounded-lg" required>
+                    <textarea placeholder="Pesan Anda" rows="5" class="form-input w-full p-3 rounded-lg" required></textarea>
+                    <button type="submit" class="contact-btn w-full text-white font-bold py-3 px-6 rounded-lg shadow-lg" style="background-color: var(--accent-color-1);">
+                        Kirim Pesan
+                    </button>
+                    <p id="form-success" class="text-center hidden" style="color: var(--accent-color-1);">Terima kasih! Pesan Anda telah terkirim.</p>
+                </form>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 md:mt-24 pt-8 border-t" style="border-color: var(--card-border);">
+            <div class="flex justify-center gap-6 mb-4">
+                <a href="#" class="text-2xl transition-all transform hover:scale-125 hover:-translate-y-1" style="color: var(--text-color-muted);"><i class="fab fa-github"></i></a>
+                <a href="#" class="text-2xl transition-all transform hover:scale-125 hover:-translate-y-1" style="color: var(--text-color-muted);"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="text-2xl transition-all transform hover:scale-125 hover:-translate-y-1" style="color: var(--text-color-muted);"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="text-sm" style="color: var(--text-color-muted);">&copy; 2025 Fairuz Aghna Mulya. Dibuat dengan semangat.</p>
+        </footer>
+    </div>
+    
+    <div id="modal" class="modal-overlay fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300">
+        <div class="modal-content relative w-11/12 max-w-2xl max-h-[90vh] overflow-y-auto p-8 rounded-2xl transform scale-95 transition-all duration-300">
+            <span class="modal-close absolute top-4 right-4 text-2xl cursor-pointer transition-all hover:rotate-90" style="color: var(--text-color-muted);">&times;</span>
+            <img id="modal-img" src="" alt="Gambar Detail" class="w-full h-auto max-h-[50vh] object-contain rounded-lg mb-4">
+            <h3 id="modal-title" class="text-3xl font-bold mb-2"></h3>
+            <div id="modal-tech-container" class="flex flex-wrap gap-2 mb-4"></div>
+            <p id="modal-issuer-container" class="text-lg mb-4" style="color: var(--text-color-muted);"></p>
+            <p id="modal-desc" style="color: var(--text-color-muted);"></p>
+            <a id="modal-download-btn" href="#" target="_blank" rel="noopener noreferrer" class="contact-btn mt-4 w-full sm:w-auto text-white font-bold py-3 px-6 rounded-lg shadow-lg inline-block text-center hidden">
+                <i class="fas fa-download mr-2"></i> Download PDF
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const typingTextElement = document.getElementById('typing-text');
+            const words = ["Game Developer", "UI/UX Enthusiast", "Creative Coder"];
+            let wordIndex = 0, charIndex = 0, isDeleting = false;
+            function type() {
+                const currentWord = words[wordIndex];
+                if (isDeleting) {
+                    typingTextElement.textContent = currentWord.substring(0, charIndex--);
+                    if (charIndex < 0) { isDeleting = false; wordIndex = (wordIndex + 1) % words.length; }
+                } else {
+                    typingTextElement.textContent = currentWord.substring(0, charIndex++);
+                    if (charIndex > currentWord.length) { isDeleting = true; setTimeout(type, 2000); return; }
+                }
+                setTimeout(type, isDeleting ? 75 : 150);
+            }
+            setTimeout(type, 500);
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        const counters = entry.target.querySelectorAll('.stat-counter');
+                        counters.forEach(counter => {
+                            if (counter.animated) return;
+                            counter.animated = true;
+                            const target = +counter.dataset.target;
+                            let current = 0;
+                            const increment = target / 100;
+                            const updateCounter = () => {
+                                current += increment;
+                                if (current < target) {
+                                    counter.innerText = Math.ceil(current);
+                                    requestAnimationFrame(updateCounter);
+                                } else {
+                                    counter.innerText = target;
+                                }
+                            };
+                            updateCounter();
+                        });
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            
+            const modal = document.getElementById('modal');
+            const modalContent = modal.querySelector('.modal-content');
+            const modalImg = document.getElementById('modal-img');
+            const modalTitle = document.getElementById('modal-title');
+            const modalDesc = document.getElementById('modal-desc');
+            const modalTechContainer = document.getElementById('modal-tech-container');
+            const modalIssuerContainer = document.getElementById('modal-issuer-container');
+            const modalDownloadBtn = document.getElementById('modal-download-btn');
+
+            document.querySelectorAll('.open-modal-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const card = button.closest('.interactive-card');
+                    const modalType = card.dataset.modalType;
+
+                    modalImg.src = card.dataset.img;
+                    modalTitle.textContent = card.dataset.title;
+                    modalDesc.textContent = card.dataset.desc || '';
+
+                    if (modalType === 'project') {
+                        modalTechContainer.classList.remove('hidden');
+                        modalIssuerContainer.classList.add('hidden');
+                        modalDownloadBtn.classList.add('hidden');
+                        
+                        modalTechContainer.innerHTML = '';
+                        card.dataset.tech.split(',').forEach(tech => {
+                            const tag = document.createElement('span');
+                            tag.className = 'bg-blue-500/20 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full';
+                            tag.textContent = tech.trim();
+                            modalTechContainer.appendChild(tag);
+                        });
+                    } else if (modalType === 'certificate') {
+                        modalTechContainer.classList.add('hidden');
+                        modalIssuerContainer.classList.remove('hidden');
+                        
+                        modalIssuerContainer.innerHTML = `${card.dataset.issuer}, <span>${card.dataset.year}</span>`;
+                        
+                        const pdfUrl = card.dataset.pdfUrl;
+                        if (pdfUrl && pdfUrl !== '#') {
+                            modalDownloadBtn.href = pdfUrl;
+                            modalDownloadBtn.classList.remove('hidden');
+                        } else {
+                            modalDownloadBtn.classList.add('hidden');
+                        }
+                    }
+
+                    modal.classList.remove('invisible', 'opacity-0');
+                    modalContent.classList.add('scale-100');
+                });
+            });
+
+            const closeModal = () => {
+                modal.classList.add('invisible', 'opacity-0');
+                modalContent.classList.remove('scale-100');
+            };
+
+            modal.querySelector('.modal-close').addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+            document.querySelectorAll('.interactive-card').forEach(card => {
+                const inner = card.querySelector('.card-inner');
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -5;
+                    const rotateY = ((x - centerX) / centerX) * 5;
+                    inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    inner.style.transform = 'none';
+                });
+            });
+
+            const contactForm = document.getElementById('contact-form');
+            const formSuccess = document.getElementById('form-success');
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                formSuccess.classList.remove('hidden');
+                contactForm.reset();
+                setTimeout(() => formSuccess.classList.add('hidden'), 4000);
+            });
+        });
+    </script>
+</body>
+</html>
