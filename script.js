@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Script by Fairuz Aghna Mulya
     // Typing animation
     const typingTextElement = document.getElementById('typing-text');
     const words = ["Game Developer", "UI/UX Enthusiast", "Creative Coder"];
