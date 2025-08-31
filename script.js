@@ -395,13 +395,15 @@ const snakeGame = {
 const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
 let konamiIndex = 0;
 window.addEventListener('keydown', (e) => {
-    if (e.key.toLowerCase() === konamiCode[konamiIndex].toLowerCase()) {
+    // Only proceed if konamiIndex is within the bounds of konamiCode
+    if (konamiIndex < konamiCode.length && e.key.toLowerCase() === konamiCode[konamiIndex].toLowerCase()) {
         konamiIndex++;
         if (konamiIndex === konamiCode.length) {
-            konamiIndex = 0;
-            snakeGame.start();
+            konamiIndex = 0; // Reset for future use
+            snakeGame.start(); // Trigger the game
         }
     } else {
+        // If the key doesn't match or konamiIndex is out of bounds, reset
         konamiIndex = 0;
     }
 });

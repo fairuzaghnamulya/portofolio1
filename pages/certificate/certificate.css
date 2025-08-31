@@ -1,1 +1,7 @@
 /* Add any custom styles for the certificate page here */
+
+.interactive-card img {
+    height: auto; /* Override Tailwind's h-56 */
+    max-width: 100%; /* Ensure image doesn't overflow */
+    display: block; /* Remove extra space below image */
+}
