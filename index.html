@@ -2,8 +2,17 @@
 <html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.tailwindcss.com 'sha256-dROO2VmmfX2v91cI1jSg+2sVf5Aax/Na2iA+gYgGg1I='; style-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; form-action 'self' https://formspree.io; frame-ancestors 'none'; object-src 'none'; base-uri 'self';">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fairuz Aghna Mulya - Curriculum Vitae</title>
+
+    <!-- SEO & Social Media Meta Tags -->
+    <meta name="description" content="Portofolio Fairuz Aghna Mulya, seorang pengembang game kreatif yang berfokus pada pengalaman interaktif dan imersif.">
+    <meta property="og:title" content="Fairuz Aghna Mulya - Creative Portfolio">
+    <meta property="og:description" content="Menjelajahi dunia pengembangan game dan desain interaktif melalui proyek-proyek kreatif.">
+    <meta property="og:image" content="https://fairuzaghnamulya.my.id/assets/img/profile.jpeg">
+    <meta property="og:url" content="https://fairuzaghnamulya.my.id">
+    <meta property="og:type" content="website">
+    <title>Fairuz Aghna Mulya - Welcome</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter & Barlow -->
@@ -11,7 +20,7 @@
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Barlow:wght@600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- External CSS -->
     <link rel="stylesheet" href="style.css">
     <!-- Icon Website -->
@@ -22,351 +31,580 @@
     </svg>">
 
 </head>
-<body class="antialiased">
+<body class="antialiased is-entering">
 
     <!-- Backgrounds -->
     <div class="animated-bg"></div>
 
-    <div class="relative container mx-auto max-w-5xl px-6 sm:px-8 md:px-12 py-12 md:py-20">
+    <div class="relative container mx-auto max-w-5xl px-4 sm:px-6 md:px-12 py-12 md:py-20">
 
         <header class="text-center mb-24 md:mb-32 reveal">
-            <img src=".\assets\profile\profile.jpg" alt="Foto Profil Fairuz Aghna" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 profile-img">
+            <img src=".\assets\img\profile.jpeg" alt="Foto Profil Fairuz Aghna" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 profile-img" id="profile-pic">
             <h1 class="text-4xl md:text-5xl font-bold tracking-tight">Fairuz Aghna Mulya</h1>
             <h2 class="text-xl md:text-2xl font-semibold mt-2 h-8">
                 <span id="typing-text" class="gradient-text"></span><span class="typing-cursor inline-block w-1 h-6 ml-1 align-middle"></span>
             </h2>
             <p class="max-w-2xl mx-auto mt-4 text-muted">
-                Siswa kelas 11 di SMKN 1 Bawang dengan semangat tinggi untuk menciptakan pengalaman bermain game yang imersif dan menyenangkan.
+                Pengembang game dengan hasrat mendalam untuk merancang dan membangun pengalaman digital yang imersif dan interaktif. Berfokus pada perpaduan antara narasi yang kuat dan gameplay yang menarik.
             </p>
             <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="mailto:fairuzaghnamulya1459@gmail.com?subject=Halo Fairuz&body=Halo, saya ingin menghubungi Anda..." 
-                class="contact-btn glass-card w-full sm:w-auto text-white font-bold py-3 px-6 rounded-lg shadow-lg inline-block">
-                <i class="fas fa-envelope mr-2"></i> Hubungi Saya
-                </a>
-                <a href="./assets/19675-Fairuz-CV-P5.pdf" download 
-                class="contact-btn glass-card w-full sm:w-auto text-white font-bold py-3 px-6 rounded-lg shadow-lg inline-block">
-                <i class="fas fa-download mr-2"></i> Download CV
-                </a>
+                <div class="relative inline-block">
+                    <a href="mailto:fairuzaghnamulya1459@gmail.com?subject=Halo Fairuz&body=Halo, saya ingin menghubungi Anda..." 
+                    class="contact-btn glass-card w-full sm:w-auto text-white font-bold py-3 px-6 rounded-lg shadow-lg inline-block">
+                    <i class="fas fa-envelope mr-2"></i> Hubungi Saya
+                    </a>
+                </div>
+                
+                <div class="relative inline-block" id="cv-tooltip-container">
+                    <!-- Tombol Download CV -->
+                    <a href="./assets/cv.pdf" download="FairuzAghnaMulya-CV.pdf" 
+                       class="contact-btn glass-card w-full sm:w-auto text-white font-bold py-3 px-6 rounded-lg shadow-lg inline-block">
+                       <i class="fas fa-download mr-2"></i> Download CV
+                    </a>
+                    <!-- Tooltip -->
+                    <div id="cv-tooltip" class="absolute bottom-full mb-2 w-64 bg-gray-800 text-white text-sm rounded-lg shadow-lg p-4 opacity-0 invisible transition-all duration-300 transform -translate-y-2 pointer-events-none">
+                        <div class="flex items-start">
+                            <i class="fas fa-info-circle text-blue-400 mr-3 mt-1"></i>
+                            <div>
+                                <h5 class="font-bold">Resume Download</h5>
+                                <p class="mt-1">My resume is available in PDF format. Click to download the latest version.</p>
+                                <div class="mt-3 flex items-center text-xs text-green-400">
+                                    <i class="fas fa-check-circle mr-2"></i>
+                                    <span>Updated: 10 Maret 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 bottom-0 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-gray-800 -mb-2"></div>
+                    </div>
+                </div>
+
             </div>
         </header>
 
         <main>
+
             <!-- Animated Stats -->
-            <section class="mb-24 md:mb-32 grid grid-cols-2 md:grid-cols-4 gap-8 text-center reveal">
-                <div>
-                    <h3 class="text-4xl font-bold gradient-text mb-1"><span class="stat-counter" data-target="4">0</span>+</h3>
-                    <p class="text-muted">Proyek Selesai</p>
-                </div>
-                <div>
-                    <h3 class="text-4xl font-bold gradient-text mb-1"><span class="stat-counter" data-target="1">0</span>+</h3>
-                    <p class="text-muted">Tahun Pengalaman</p>
-                </div>
-                <div>
-                    <h3 class="text-4xl font-bold gradient-text mb-1"><span class="stat-counter" data-target="3000">0</span>+</h3>
-                    <p class="text-muted">Jam Koding</p>
-                </div>
-                <div>
-                    <h3 class="text-4xl font-bold gradient-text mb-1"><span class="stat-counter" data-target="3">0</span>+</h3>
-                    <p class="text-muted">Sertifikat</p>
-                </div>
+            <section id="animated-stats" class="mb-24 md:mb-32 grid grid-cols-2 md:grid-cols-4 gap-8 text-center reveal">
+              <!-- Projects -->
+              <div>
+                <h3 class="text-4xl font-bold gradient-text mb-1">
+                  <span class="stat-counter project-counter" data-target="12">0</span>+
+                </h3>
+                <p class="text-muted">Completed Projects</p>
+              </div>
+          
+              <!-- Experience -->
+              <div>
+                <h3 class="text-4xl font-bold gradient-text mb-1">
+                  <span class="stat-counter" data-target="2">0</span>+
+                </h3>
+                <p class="text-muted">Years of Experience</p>
+              </div>
+          
+              <!-- Coding Hours -->
+              <div>
+                <h3 class="text-4xl font-bold gradient-text mb-1">
+                  <span class="stat-counter" data-target="3500">0</span>+
+                </h3>
+                <p class="text-muted">Hours of Coding</p>
+              </div>
+          
+              <!-- Certifications -->
+              <div>
+                <h3 class="text-4xl font-bold gradient-text mb-1">
+                  <span class="stat-counter cert-counter" data-target="5">0</span>+
+                </h3>
+                <p class="text-muted">Professional Certifications</p>
+              </div>
             </section>
 
+
             <section id="about" class="mb-24 md:mb-32 reveal">
-                <h3 class="text-3xl font-bold mb-6 border-b-2 pb-2 inline-block accent-border">Tentang Saya</h3>
-                <div class="leading-relaxed text-lg space-y-4 text-muted">
-                    <p>Sejak kecil, saya selalu terpesona dengan dunia game. Bukan hanya sebagai pemain, tetapi juga bagaimana sebuah ide bisa diubah menjadi dunia interaktif yang kompleks. Rasa penasaran ini mendorong saya untuk belajar di SMKN 1 Bawang, di mana saya bisa benar-benar mendalami proses kreatif dan teknis di balik layar.</p>
-                    <p>Saya sangat menikmati setiap tahap pengembangan, mulai dari menerjemahkan cerita menjadi mekanik gameplay yang seru, mendesain level yang menantang namun adil, hingga memoles detail visual yang membuat sebuah game terasa hidup. Bagi saya, game adalah perpaduan sempurna antara seni dan teknologi, dan saya bersemangat untuk terus belajar dan berkontribusi di industri ini.</p>
+                <h3 class="text-2xl sm:text-3xl font-bold mb-6 border-b-2 pb-2 inline-block accent-border">Tentang Saya</h3>
+                <div class="leading-relaxed text-base sm:text-lg space-y-4 text-muted">
+                    <p>Kecintaan saya pada dunia game berawal dari kekaguman terhadap bagaimana sebuah konsep dapat bertransformasi menjadi dunia interaktif yang hidup. Saya tidak hanya melihat game sebagai hiburan, tetapi sebagai sebuah medium penceritaan yang kuat—perpaduan antara seni dan teknologi.</p>
+                    <p>Proses kreatif adalah inti dari pekerjaan saya: mulai dari dekonstruksi ide menjadi mekanik gameplay yang intuitif, merancang level yang menantang secara strategis, hingga memoles setiap detail visual untuk menciptakan atmosfer yang imersif. Saya berdedikasi untuk terus mengeksplorasi potensi tak terbatas dalam pengembangan game dan berkolaborasi untuk menghasilkan karya yang berkesan.</p>
                 </div>
             </section>
 
             <!-- Experience Timeline -->
             <section id="experience" class="mb-24 md:mb-32 reveal">
-                <h3 class="text-3xl font-bold text-center mb-12">Pengalaman</h3>
-                <div class="timeline max-w-2xl mx-auto">
-                    <div class="timeline-item">
-                        <div class="timeline-dot"><i class="fas fa-briefcase"></i></div>
-                        <p class="font-semibold text-sm accent-2-color">Nov 2023 - Feb 2024</p>
-                        <h4 class="text-xl font-bold mt-1">Peserta Kelas Industri</h4>
-                        <p class="font-medium mb-2 text-muted">Kelas Karir Anak Indonesia, Semarang</p>
-                        <p class="text-muted text-sm">Mengikuti program Kelas Industri yang berfokus pada pengembangan kompetensi profesional untuk pasar digital global. Selama program, dibimbing untuk mengembangkan karakter, keterampilan teknis, dan manajemen usaha. Dikenal sebagai peserta yang rajin dan mampu menyelesaikan tugas dengan cepat, serta terus menunjukkan progres dalam peningkatan skill teknis maupun non-teknis.</p>
+    <div class="grid md:grid-cols-2 gap-x-16 gap-y-8">
+        <!-- Column 1: Experience -->
+        <div>
+            <h3 class="text-2xl sm:text-3xl font-bold mb-8">Pengalaman</h3>
+            <div class="timeline relative">
+                <div class="timeline-item">
+                    <div class="timeline-dot"><i class="fas fa-rocket"></i></div>
+                    <p class="font-semibold text-sm accent-2-color">Nov 2023 - Feb 2024</p>
+                    <h4 class="text-xl font-bold mt-1">Pengembangan Kompetensi & Karir Digital</h4>
+                    <p class="font-medium mb-2 text-muted">Kelas Karir Anak Indonesia, Semarang</p>
+                    <div class="text-muted text-sm space-y-2">
+                        <p>Program intensif yang dirancang untuk akselerasi keahlian teknis dan profesional di panggung digital global. Fokus utama meliputi:</p>
+                        <ul class="list-disc list-inside pl-2 space-y-1">
+                            <li><span class="font-semibold text-white">Pengembangan Karakter:</span> Membangun etos kerja profesional, komunikasi, dan kolaborasi tim.</li>
+                            <li><span class="font-semibold text-white">Keterampilan Teknis:</span> Akselerasi pembelajaran dalam pengembangan produk digital dan manajemen proyek.</li>
+                            <li><span class="font-semibold text-white">Manajemen Usaha:</span> Pengenalan dasar-dasar kewirausahaan dan strategi produk di industri teknologi.</li>
+                        </ul>
+                        <p>Menyelesaikan program dengan predikat progresif, menunjukkan kemampuan adaptasi cepat dan penguasaan materi teknis secara konsisten.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Column 2: Education -->
+        <div>
+            <h3 class="text-2xl sm:text-3xl font-bold mb-8">Edukasi</h3>
+            <div class="timeline relative">
+                <div class="timeline-item">
+                    <div class="timeline-dot"><i class="fas fa-graduation-cap"></i></div>
+                    <p class="font-semibold text-sm accent-2-color">2024 - Sekarang</p>
+                    <h4 class="text-xl font-bold mt-1">SMK Negeri 1 Bawang</h4>
+                    <p class="font-medium mb-2 text-muted">Pengembangan Perangkat Lunak dan Gim (PPLG)</p>
+                    <div class="text-muted text-sm space-y-2">
+                        <p>Kurikulum berbasis proyek yang berfokus pada fondasi dan praktik industri modern dalam pengembangan perangkat lunak dan desain game.</p>
+                        <ul class="list-disc list-inside pl-2 space-y-1">
+                            <li>Game Mechanics & Logic</li>
+                            <li>UI/UX Design & Prototyping</li>
+                            <li>Object-Oriented Programming (OOP)</li>
+                            <li>Database & System Design</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+       <!-- Skills Section with Marquee -->
+            <section id="skills" class="mb-24 md:mb-32 reveal">
+              <h3 class="text-2xl sm:text-3xl font-bold text-center mb-12">Teknologi & Keahlian</h3>
+              <div class="marquee-container">
+            
+                <!-- Baris 1 -> Kiri -->
+                <div class="flex marquee-left">
+                  <div class="marquee">
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-js text-2xl accent-2-icon"></i> JavaScript
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-react text-2xl accent-2-icon"></i> React
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-html5 text-2xl accent-2-icon"></i> HTML5
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-css3-alt text-2xl accent-2-icon"></i> CSS3
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-php text-2xl accent-2-icon"></i> PHP
+                    </div>
+                  </div>
+                  <div class="marquee">
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-js text-2xl accent-2-icon"></i> JavaScript
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-react text-2xl accent-2-icon"></i> React
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-html5 text-2xl accent-2-icon"></i> HTML5
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-css3-alt text-2xl accent-2-icon"></i> CSS3
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-php text-2xl accent-2-icon"></i> PHP
+                    </div>
+                  </div>
+                </div>
+            
+                <!-- Baris 2 -> Kanan -->
+                <div class="flex marquee-right">
+                  <div class="marquee">
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-python text-2xl accent-1-icon"></i> Python
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-docker text-2xl accent-1-icon"></i> Docker
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-git-alt text-2xl accent-1-icon"></i> Git & GitHub
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-database text-2xl accent-1-icon"></i> SQL
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-network-wired text-2xl accent-1-icon"></i> Infrastructure
+                    </div>
+                  </div>
+                  <div class="marquee">
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-python text-2xl accent-1-icon"></i> Python
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-docker text-2xl accent-1-icon"></i> Docker
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-git-alt text-2xl accent-1-icon"></i> Git & GitHub
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-database text-2xl accent-1-icon"></i> SQL
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-network-wired text-2xl accent-1-icon"></i> Infrastructure
+                    </div>
+                  </div>
+                </div>
+            
+                <!-- Baris 3 -> Kiri -->
+                <div class="flex marquee-left">
+                  <div class="marquee">
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-pen-nib text-2xl accent-2-icon"></i> Photoshop
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-figma text-2xl accent-2-icon"></i> Figma
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-drafting-compass text-2xl accent-2-icon"></i> UI/UX Design
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-cubes text-2xl accent-2-icon"></i> 3D Design
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-brain text-2xl accent-2-icon"></i> Creative Problem Solving
+                    </div>
+                  </div>
+                  <div class="marquee">
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-pen-nib text-2xl accent-2-icon"></i> Photoshop
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-figma text-2xl accent-2-icon"></i> Figma
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-drafting-compass text-2xl accent-2-icon"></i> UI/UX Design
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-cubes text-2xl accent-2-icon"></i> 3D Design
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-brain text-2xl accent-2-icon"></i> Creative Problem Solving
+                    </div>
+                  </div>
+                </div>
+            
+                <!-- Baris 4 -> Kanan -->
+                <div class="flex marquee-right">
+                  <div class="marquee">
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-code-branch text-2xl accent-1-icon"></i> Backend Engineering
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-wind text-2xl accent-1-icon"></i> TailwindCSS
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-laravel text-2xl accent-1-icon"></i> Laravel
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-sync text-2xl accent-1-icon"></i> Agile Methodology
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-server text-2xl accent-1-icon"></i> Server Management
+                    </div>
+                  </div>
+                  <div class="marquee">
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-code-branch text-2xl accent-1-icon"></i> Backend Engineering
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-wind text-2xl accent-1-icon"></i> TailwindCSS
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-laravel text-2xl accent-1-icon"></i> Laravel
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-sync text-2xl accent-1-icon"></i> Agile Methodology
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-server text-2xl accent-1-icon"></i> Server Management
+                    </div>
+                  </div>
+                </div>
+            
+                <!-- Baris 5 -> Kiri -->
+                <div class="flex marquee-left">
+                  <div class="marquee">
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-unity text-2xl accent-2-icon"></i> Unity
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-file-code text-2xl accent-2-icon"></i> C#
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-python text-2xl accent-2-icon"></i> Python
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-react text-2xl accent-2-icon"></i> React
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-docker text-2xl accent-2-icon"></i> Docker
+                    </div>
+                  </div>
+                  <div class="marquee">
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-unity text-2xl accent-2-icon"></i> Unity
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fas fa-file-code text-2xl accent-2-icon"></i> C#
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-python text-2xl accent-2-icon"></i> Python
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-react text-2xl accent-2-icon"></i> React
+                    </div>
+                    <div class="skill-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg">
+                      <i class="fab fa-docker text-2xl accent-2-icon"></i> Docker
+                    </div>
+                  </div>
+                </div>
+            
+              </div>
             </section>
 
-            <!-- Skills Section with Marquee -->
-            <section id="skills" class="mb-24 md:mb-32 reveal">
-                <h3 class="text-3xl font-bold text-center mb-8">Teknologi & Keahlian</h3>
-                <div class="marquee-container">
-                    <!-- Baris 1 -> Kiri -->
-                    <div class="flex marquee-left">
-                        <div class="marquee">
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-unity text-2xl accent-2-icon"></i> Unity</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-code text-2xl accent-2-icon"></i> C#</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-python text-2xl accent-2-icon"></i> Python</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-react text-2xl accent-2-icon"></i> React</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-docker text-2xl accent-2-icon"></i> Docker</div>
-                        </div>
-                        <div class="marquee">
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-unity text-2xl accent-2-icon"></i> Unity</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-code text-2xl accent-2-icon"></i> C#</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-python text-2xl accent-2-icon"></i> Python</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-react text-2xl accent-2-icon"></i> React</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-docker text-2xl accent-2-icon"></i> Docker</div>
-                        </div>
-                    </div>
-                    <!-- Baris 2 -> Kanan -->
-                    <div class="flex marquee-right">
-                        <div class="marquee">
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-cube text-2xl accent-1-icon"></i> Blender</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-palette text-2xl accent-1-icon"></i> Photoshop</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-figma text-2xl accent-1-icon"></i> Figma</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-pen-ruler text-2xl accent-1-icon"></i> UI/UX Design</div>
-                        </div>
-                        <div class="marquee">
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-cube text-2xl accent-1-icon"></i> Blender</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-palette text-2xl accent-1-icon"></i> Photoshop</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-figma text-2xl accent-1-icon"></i> Figma</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-pen-ruler text-2xl accent-1-icon"></i> UI/UX Design</div>
-                        </div>
-                    </div>
-                    <!-- Baris 3 -> Kiri -->
-                    <div class="flex marquee-left">
-                        <div class="marquee">
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-git-alt text-2xl accent-2-icon"></i> Git & Github</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-database text-2xl accent-2-icon"></i> SQL</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-js text-2xl accent-2-icon"></i> JavaScript</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-html5 text-2xl accent-2-icon"></i> HTML5</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-css3-alt text-2xl accent-2-icon"></i> CSS3</div>
-                        </div>
-                        <div class="marquee">
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-git-alt text-2xl accent-2-icon"></i> Git & Github</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-database text-2xl accent-2-icon"></i> SQL</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-js text-2xl accent-2-icon"></i> JavaScript</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-html5 text-2xl accent-2-icon"></i> HTML5</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-css3-alt text-2xl accent-2-icon"></i> CSS3</div>
-                        </div>
-                    </div>
-                    <!-- Baris 4 -> Kanan -->
-                     <div class="flex marquee-right">
-                        <div class="marquee">
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-wind text-2xl accent-1-icon"></i> TailwindCSS</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-cogs text-2xl accent-1-icon"></i> Game Mechanics</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-lightbulb text-2xl accent-1-icon"></i> Problem Solving</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-sitemap text-2xl accent-1-icon"></i> Agile Method</div>
-                        </div>
-                        <div class="marquee">
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-wind text-2xl accent-1-icon"></i> TailwindCSS</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-cogs text-2xl accent-1-icon"></i> Game Mechanics</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-lightbulb text-2xl accent-1-icon"></i> Problem Solving</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-sitemap text-2xl accent-1-icon"></i> Agile Method</div>
-                        </div>
-                    </div>
-                    <!-- Baris 5 -> Kiri -->
-                    <div class="flex marquee-left">
-                        <div class="marquee">
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-unity text-2xl accent-2-icon"></i> Unity</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-code text-2xl accent-2-icon"></i> C#</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-python text-2xl accent-2-icon"></i> Python</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-react text-2xl accent-2-icon"></i> React</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-docker text-2xl accent-2-icon"></i> Docker</div>
-                        </div>
-                        <div class="marquee">
-                           <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-unity text-2xl accent-2-icon"></i> Unity</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fas fa-code text-2xl accent-2-icon"></i> C#</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-python text-2xl accent-2-icon"></i> Python</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-react text-2xl accent-2-icon"></i> React</div>
-                            <div class="skill-card glass-card flex items-center gap-3 p-3 px-5 rounded-xl font-semibold shadow-lg"><i class="fab fa-docker text-2xl accent-2-icon"></i> Docker</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             <section id="projects" class="mb-24 md:mb-32 reveal">
-                <h3 class="text-3xl font-bold text-center mb-8">Proyek Unggulan</h3>
+                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-8">Proyek Unggulan</h3>
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="interactive-card glass-card rounded-xl overflow-hidden group relative"
                          data-modal-type="project"
-                         data-img=".\assets\proyek\my-live-currency.png"
+                         data-img=".\assets\project\my-live-currency.png"
                          data-title="My Live Currency" data-tech="HTML, CSS, JavaScript"
                          data-desc="MyLiveCurrency adalah project untuk memantau kurs mata uang dan Bitcoin secara real-time. Aplikasi ini juga menyediakan fitur konversi antar USD, IDR, dan BTC.">
                         <div class="card-inner">
-                            <img src=".\assets\proyek\my-live-currency.png" alt="Gambar Proyek 1" class="w-full h-80 object-cover">
+                            <img src=".\assets\project\my-live-currency.png" alt="Gambar Proyek 1" class="w-full h-80 object-cover" loading="lazy">
                             <div class="card-overlay absolute inset-0"></div>
-                            <div class="card-content absolute bottom-0 left-0 p-6 w-full">
+                            <div class="card-content absolute bottom-0 left-0 p-4 sm:p-6 w-full">
                                 <h4 class="text-2xl font-bold text-white mb-2">My Live Currency</h4>
-                                <button class="open-modal-btn font-semibold transition-all accent-1-color">Lihat Detail <i class="fas fa-arrow-right ml-1"></i></button>
+                                <div>
+                                    <button class="open-modal-btn font-semibold transition-all accent-1-color">Lihat Detail <i class="fas fa-arrow-right ml-1"></i></button>
+                                    <a href="#" target="_blank" rel="noopener noreferrer" class="font-semibold transition-all text-sm accent-1-color ml-4">Visit <i class="fas fa-external-link-alt ml-1"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="interactive-card glass-card rounded-xl overflow-hidden group relative"
                          data-modal-type="project"
-                         data-img=".\assets\proyek\linkq.png"
+                         data-img=".\assets\project\linkq.png"
                          data-title="LinkQ" data-tech="HTML, CSS, JavaScript"
                          data-desc="LinkQ adalah project Simple Link yang berfungsi sebagai halaman arahan untuk mengumpulkan berbagai tautan media sosial dan profesional. Aplikasi ini menyediakan akses terpusat ke profil seperti Instagram, YouTube, GitHub, dan LinkedIn dalam satu tampilan yang sederhana.">
                         <div class="card-inner">
-                            <img src=".\assets\proyek\linkq.png" alt="Gambar Proyek 2" class="w-full h-80 object-cover">
+                            <img src=".\assets\project\linkq.png" alt="Gambar Proyek 2" class="w-full h-80 object-cover" loading="lazy">
                             <div class="card-overlay absolute inset-0"></div>
-                            <div class="card-content absolute bottom-0 left-0 p-6 w-full">
+                            <div class="card-content absolute bottom-0 left-0 p-4 sm:p-6 w-full">
                                 <h4 class="text-2xl font-bold text-white mb-2">LinkQ</h4>
-                                <button class="open-modal-btn font-semibold transition-all accent-1-color">Lihat Detail <i class="fas fa-arrow-right ml-1"></i></button>
+                                <div>
+                                    <button class="open-modal-btn font-semibold transition-all accent-1-color">Lihat Detail <i class="fas fa-arrow-right ml-1"></i></button>
+                                    <a href="#" target="_blank" rel="noopener noreferrer" class="font-semibold transition-all text-sm accent-1-color ml-4">Visit <i class="fas fa-external-link-alt ml-1"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="interactive-card glass-card rounded-xl overflow-hidden group relative"
                          data-modal-type="project"
-                         data-img=".\assets\proyek\chat-bot.png"
+                         data-img=".\assets\project\chat-bot.png"
                          data-title="ChatBot" data-tech="HTML, CSS, JavaScript, React, Vite, ESLint, Node.js"
                          data-desc="ChatBot adalah project aplikasi chat sederhana dengan bot yang bisa menyapa dan merespon pengguna. Desainnya clean dengan nuansa ungu dan fokus pada percakapan.">
                         <div class="card-inner">
-                            <img src=".\assets\proyek\chat-bot.png" alt="Gambar Proyek 3" class="w-full h-80 object-cover">
+                            <img src=".\assets\project\chat-bot.png" alt="Gambar Proyek 3" class="w-full h-80 object-cover" loading="lazy">
                             <div class="card-overlay absolute inset-0"></div>
-                            <div class="card-content absolute bottom-0 left-0 p-6 w-full">
+                            <div class="card-content absolute bottom-0 left-0 p-4 sm:p-6 w-full">
                                 <h4 class="text-2xl font-bold text-white mb-2">ChatBot</h4>
-                                <button class="open-modal-btn font-semibold transition-all accent-1-color">Lihat Detail <i class="fas fa-arrow-right ml-1"></i></button>
+                                <div>
+                                    <button class="open-modal-btn font-semibold transition-all accent-1-color">Lihat Detail <i class="fas fa-arrow-right ml-1"></i></button>
+                                    <a href="#" target="_blank" rel="noopener noreferrer" class="font-semibold transition-all text-sm accent-1-color ml-4">Visit <i class="fas fa-external-link-alt ml-1"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="interactive-card glass-card rounded-xl overflow-hidden group relative"
                          data-modal-type="project"
-                         data-img=".\assets\proyek\signly.png"
+                         data-img=".\assets\project\signly.png"
                          data-title="Signly" data-tech="HTML, CSS, JavaScript"
                          data-desc="Signly adalah project halaman login dengan tampilan modern dan minimalis. Pengguna bisa masuk menggunakan email dan password atau melalui akun Google, Facebook, GitHub, dan LinkedIn.">
                         <div class="card-inner">
-                            <img src=".\assets\proyek\signly.png" alt="Gambar Proyek 4" class="w-full h-80 object-cover">
+                            <img src=".\assets\project\signly.png" alt="Gambar Proyek 4" class="w-full h-80 object-cover" loading="lazy">
                             <div class="card-overlay absolute inset-0"></div>
-                            <div class="card-content absolute bottom-0 left-0 p-6 w-full">
+                            <div class="card-content absolute bottom-0 left-0 p-4 sm:p-6 w-full">
                                 <h4 class="text-2xl font-bold text-white mb-2">Signly</h4>
-                                <button class="open-modal-btn font-semibold transition-all accent-1-color">Lihat Detail <i class="fas fa-arrow-right ml-1"></i></button>
+                                <div>
+                                    <button class="open-modal-btn font-semibold transition-all accent-1-color">Lihat Detail <i class="fas fa-arrow-right ml-1"></i></button>
+                                    <a href="https://github.com/fairuzaghnamulya" target="_blank" rel="noopener noreferrer" class="font-semibold transition-all text-sm accent-1-color ml-4">Visit <i class="fas fa-external-link-alt ml-1"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="text-center mt-8">
+                    <a href="pages/projects/project.html" class="text-accent-1-color font-semibold hover:underline">Lihat Selengkapnya <i class="fas fa-arrow-right ml-1"></i></a>
                 </div>
             </section>
             
             <section id="certificates" class="mb-24 md:mb-32 reveal">
-                <h3 class="text-3xl font-bold text-center mb-8">Sertifikat & Penghargaan</h3>
-                <div class="grid md:grid-cols-3 gap-8">
+                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-8">Sertifikat & Penghargaan</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="interactive-card glass-card rounded-xl overflow-hidden group relative"
                          data-modal-type="certificate"
-                         data-img=".\assets\sertifikat\sertifikat_dasar_ai.jpg"
+                         data-img=".\assets\certificate\sertifikat_dasar_ai.jpg"
                          data-title="Dasar-Dasar Kecerdasan Buatan (AI)"
                          data-issuer="Dicoding"
                          data-year="2024"
-                         data-pdf-url=".\assets\sertifikat\sertifikat_dasar_ai.pdf">
+                         data-pdf-url=".\assets\certificate\sertifikat_dasar_ai.pdf">
                         <div class="card-inner">
-                            <img src=".\assets\sertifikat\sertifikat_dasar_ai.jpg" alt="Sertifikat Dasar-Dasar Kecerdasan Buatan" class="w-full h-56 object-cover">
+                            <img src=".\assets\certificate\sertifikat_dasar_ai.jpg" alt="Sertifikat Dasar-Dasar Kecerdasan Buatan" class="w-full h-56 object-cover" loading="lazy">
                             <div class="card-overlay absolute inset-0"></div>
-                            <div class="card-content absolute bottom-0 left-0 p-6 w-full">
-                                <h4 class="text-lg font-bold text-white mb-1">Dasar-Dasar Kecerdasan Buatan</h4>
+                            <div class="card-content absolute bottom-0 left-0 p-4 sm:p-6 w-full">
+                                <h4 class="text-base sm:text-lg font-bold text-white mb-1">Dasar-Dasar Kecerdasan Buatan</h4>
                                 <button class="open-modal-btn font-semibold transition-all text-sm accent-1-color">Lihat Detail <i class="fas fa-arrow-right ml-1"></i></button>
                             </div>
                         </div>
                     </div>
                     <div class="interactive-card glass-card rounded-xl overflow-hidden group relative"
                          data-modal-type="certificate"
-                         data-img=".\assets\sertifikat\sertifikat_python.jpg"
+                         data-img=".\assets\certificate\sertifikat_python.jpg"
                          data-title="Memulai Pemrograman Dengan Python"
                          data-issuer="Dicoding"
                          data-year="2024"
-                         data-pdf-url=".\assets\sertifikat\sertifikat_python.pdf">
+                         data-pdf-url=".\assets\certificate\sertifikat_python.pdf">
                         <div class="card-inner">
-                            <img src=".\assets\sertifikat\sertifikat_python.jpg" alt="Sertifikat Python" class="w-full h-56 object-cover">
+                            <img src=".\assets\certificate\sertifikat_python.jpg" alt="Sertifikat Python" class="w-full h-56 object-cover" loading="lazy">
                             <div class="card-overlay absolute inset-0"></div>
-                            <div class="card-content absolute bottom-0 left-0 p-6 w-full">
-                                <h4 class="text-lg font-bold text-white mb-1">Memulai Pemrograman Dengan Python</h4>
+                            <div class="card-content absolute bottom-0 left-0 p-4 sm:p-6 w-full">
+                                <h4 class="text-base sm:text-lg font-bold text-white mb-1">Memulai Pemrograman Dengan Python</h4>
                                 <button class="open-modal-btn font-semibold transition-all text-sm accent-1-color">Lihat Detail <i class="fas fa-arrow-right ml-1"></i></button>
                             </div>
                         </div>
                     </div>
                     <div class="interactive-card glass-card rounded-xl overflow-hidden group relative"
                          data-modal-type="certificate"
-                         data-img=".\assets\sertifikat\sertifikat_dasar_aws.jpg"
+                         data-img=".\assets\certificate\sertifikat_dasar_aws.jpg"
                          data-title="Cloud Practitioner Essentials (Belajar AWS Cloud)"
                          data-issuer="Dicoding"
                          data-year="2024"
-                         data-pdf-url=".\assets\sertifikat\sertifikat_dasar_aws.pdf">
+                         data-pdf-url=".\assets\certificate\sertifikat_dasar_aws.pdf">
                         <div class="card-inner">
-                            <img src=".\assets\sertifikat\sertifikat_dasar_aws.jpg" alt="Sertifikat LKS" class="w-full h-56 object-cover">
+                            <img src=".\assets\certificate\sertifikat_dasar_aws.jpg" alt="Sertifikat LKS" class="w-full h-56 object-cover" loading="lazy">
                             <div class="card-overlay absolute inset-0"></div>
-                            <div class="card-content absolute bottom-0 left-0 p-6 w-full">
-                                <h4 class="text-lg font-bold text-white mb-1">Cloud Practitioner Essentials (Belajar AWS Cloud)</h4>
+                            <div class="card-content absolute bottom-0 left-0 p-4 sm:p-6 w-full">
+                                <h4 class="text-base sm:text-lg font-bold text-white mb-1">Cloud Practitioner Essentials (Belajar AWS Cloud)</h4>
                                 <button class="open-modal-btn font-semibold transition-all text-sm accent-1-color">Lihat Detail <i class="fas fa-arrow-right ml-1"></i></button>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="text-center mt-8">
+                    <a href="pages/certificate/certificate.html" class="text-accent-1-color font-semibold hover:underline">Lihat Selengkapnya <i class="fas fa-arrow-right ml-1"></i></a>
                 </div>
             </section>
 
             <!-- Contact Form -->
             <section id="contact" class="mb-24 md:mb-32 reveal">
-                <h3 class="text-3xl font-bold text-center mb-8">Hubungi Saya</h3>
-                <form 
-                    id="contact-form" 
-                    class="max-w-xl mx-auto space-y-4"
-                    action="https://formspree.io/f/xzzabdqy" 
-                    method="POST"
-                    autocomplete="off"
-                    novalidate
-                >
-                    <!-- Nama -->
-                    <input 
-                        type="text" 
-                        name="name" 
-                        placeholder="Nama Anda" 
-                        class="form-input w-full p-3 rounded-lg" 
-                        required
+                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-8">Hubungi Saya</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-xl font-bold mb-4">Informasi Kontak</h4>
+                        <div class="space-y-4 text-muted">
+                            <p><i class="fas fa-envelope mr-2"></i> fairuzaghnamulya1459@gmail.com</p>
+                            <p><i class="fab fa-github mr-2"></i> <a href="https://github.com/fairuzaghnamulya" target="_blank" rel="noopener noreferrer" class="hover:text-accent-1-color">github.com/fairuzaghnamulya</a></p>
+                            <p><i class="fab fa-linkedin mr-2"></i> <a href="#" target="_blank" rel="noopener noreferrer" class="hover:text-accent-1-color">LinkedIn</a></p>
+                            <p><i class="fab fa-instagram mr-2"></i> <a href="https://www.instagram.com/fairuzaghnamulya_" target="_blank" rel="noopener noreferrer" class="hover:text-accent-1-color">Instagram</a></p>
+                        </div>
+                    </div>
+                    <form 
+                        id="contact-form" 
+                        class="space-y-4"
+                        action="https://formspree.io/f/xzzabdqy" 
+                        method="POST"
                         autocomplete="off"
-                        value=""
+                        novalidate
                     >
-            
-                    <!-- Email -->
-                    <input 
-                        type="email" 
-                        name="email" 
-                        placeholder="Email Anda" 
-                        class="form-input w-full p-3 rounded-lg" 
-                        required
-                        autocomplete="off"
-                        value=""
-                    >
-            
-                    <!-- Pesan -->
-                    <textarea 
-                        name="message" 
-                        placeholder="Pesan Anda" 
-                        rows="5" 
-                        class="form-input w-full p-3 rounded-lg" 
-                        required 
-                        autocomplete="off"
-                    ></textarea>
-            
-                    <!-- Tombol Kirim -->
-                    <button 
-                        type="submit" 
-                        class="contact-btn w-full text-white font-bold py-3 px-6 rounded-lg shadow-lg" 
-                        style="background-color: var(--accent-color-1);"
-                    >
-                        Kirim Pesan
-                    </button>
+                        <!-- Nama -->
+                        <input 
+                            type="text" 
+                            name="name" 
+                            placeholder="Nama Anda" 
+                            class="form-input w-full p-3 rounded-lg" 
+                            required
+                            autocomplete="off"
+                            value=""
+                        >
                 
-                    <!-- Pesan sukses -->
-                    <p id="form-success" class="text-center hidden accent-1-color">
-                        Terima kasih! Pesan Anda telah terkirim.
-                    </p>
-                </form>
+                        <!-- Email -->
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Email Anda" 
+                            class="form-input w-full p-3 rounded-lg" 
+                            required
+                            autocomplete="off"
+                            value=""
+                        >
+                
+                        <!-- Pesan -->
+                        <textarea 
+                            name="message" 
+                            placeholder="Pesan Anda" 
+                            rows="5" 
+                            class="form-input w-full p-3 rounded-lg resize-none" 
+                            required 
+                            autocomplete="off"
+                            maxlength="250"
+                        ></textarea>
+                        <div class="text-right text-sm text-muted" id="char-counter">0 / 250</div>
+                
+                        <!-- Tombol Kirim -->
+                        <button 
+                            type="submit" 
+                            class="contact-btn w-full text-white font-bold py-3 px-6 rounded-lg shadow-lg" 
+                            style="background-color: var(--accent-color-1);"
+                        >
+                            Kirim Pesan
+                        </button>
+                    
+                        <!-- Pesan sukses -->
+                        <p id="form-success" class="text-center hidden accent-1-color">
+                            Terima kasih! Pesan Anda telah terkirim.
+                        </p>
+                    </form>
+                </div>
             </section>
         </main>
 
     <footer class="text-center mt-16 md:mt-24 pt-8 border-t border-border">
         <div class="flex justify-center gap-6 mb-4">
-        <a href="#" class="text-2xl transition-all transform hover:scale-125 hover:-translate-y-1 text-muted"><i class="fab fa-github"></i></a>
-        <a href="#" class="text-2xl transition-all transform hover:scale-125 hover:-translate-y-1 text-muted"><i class="fab fa-linkedin"></i></a>
-        <a href="#" class="text-2xl transition-all transform hover:scale-125 hover:-translate-y-1 text-muted"><i class="fab fa-instagram"></i></a>
+        <a href="https://github.com/fairuzaghnamulya" aria-label="GitHub Profile" class="text-2xl transition-all transform hover:scale-125 hover:-translate-y-1 text-muted"><i class="fab fa-github"></i></a>
+        <a href="#" aria-label="LinkedIn Profile" class="text-2xl transition-all transform hover:scale-125 hover:-translate-y-1 text-muted"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.instagram.com/fairuzaghnamulya_" aria-label="Instagram Profile" class="text-2xl transition-all transform hover:scale-125 hover:-translate-y-1 text-muted"><i class="fab fa-instagram"></i></a>
         </div>
         <p class="text-sm text-muted">
             &copy; <span id="year"></span> Fairuz Aghna Mulya. Dibuat dengan semangat.
         </p>
     </footer>
+
+    <!-- Game Modal -->
+    <div id="game-modal" class="modal-overlay fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300">
+        <div class="modal-content relative w-auto p-4 rounded-2xl transform scale-95 transition-all duration-300 text-center" style="background-color: #1e1e2e;">
+            <span id="game-modal-close" class="modal-close absolute top-2 right-4 text-2xl cursor-pointer transition-all hover:rotate-90 text-muted">&times;</span>
+            <h3 class="text-2xl font-bold mb-4">Snake!</h3>
+            <canvas id="game-canvas" width="400" height="400" class="rounded-lg mx-auto" style="background-color: #0A0E14;"></canvas>
+            <div class="flex justify-between items-center mt-4 text-muted">
+                <p class="text-sm">Use Arrow Keys to move.</p>
+                <p class="text-sm">Score: <span id="score">0</span></p>
+            </div>
+        </div>
+    </div>
 
     <script>
         document.getElementById("year").textContent = new Date().getFullYear();
@@ -378,7 +616,7 @@
         <div class="modal-content relative w-11/12 max-w-2xl max-h-[90vh] overflow-y-auto p-8 rounded-2xl transform scale-95 transition-all duration-300">
             <span class="modal-close absolute top-4 right-4 text-2xl cursor-pointer transition-all hover:rotate-90 text-muted">&times;</span>
             <img id="modal-img" src="" alt="Gambar Detail" class="w-full h-auto max-h-[50vh] object-contain rounded-lg mb-4">
-            <h3 id="modal-title" class="text-3xl font-bold mb-2"></h3>
+            <h3 id="modal-title" class="text-2xl sm:text-3xl font-bold mb-2"></h3>
             <div id="modal-tech-container" class="flex flex-wrap gap-2 mb-4"></div>
             <p id="modal-issuer-container" class="text-lg mb-4 text-muted"></p>
             <p id="modal-desc" class="text-muted"></p>
