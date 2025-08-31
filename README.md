@@ -53,22 +53,6 @@ This project was built using fundamental web technologies, with a focus on clean
 
 ---
 
-## 📂 How To Use
-
-To run this project locally, simply clone the repository and open the `index.html` file in your web browser.
-
-```bash
-# Clone the repository
-git clone https://github.com/fairuzaghnamulya/portofolio.git
-
-# Navigate to the project directory
-cd portofolio
-
-# Open index.html in your browser
-```
-
----
-
 ## 🤫 Psst...
 
 Try the Konami Code.
