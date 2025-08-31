@@ -54,13 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (target.id === 'animated-stats') {
                     try {
                         // Fetch Projects Page
-                        const projectResponse = await fetch('pages/projects/project.html');
+                        const projectResponse = await fetch('project.html');
                         const projectHTML = await projectResponse.text();
                         const projectDoc = new DOMParser().parseFromString(projectHTML, 'text/html');
                         const projectCount = projectDoc.querySelectorAll('.interactive-card').length;
 
                         // Fetch Certificates Page
-                        const certResponse = await fetch('pages/certificate/certificate.html');
+                        const certResponse = await fetch('certificate.html');
                         const certHTML = await certResponse.text();
                         const certDoc = new DOMParser().parseFromString(certHTML, 'text/html');
                         const certCount = certDoc.querySelectorAll('.interactive-card').length;
@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Page transition logic
     document.body.classList.remove('is-entering');
 
-    const pageLinks = document.querySelectorAll('a[href="pages/projects/project.html"], a[href="pages/certificate/certificate.html"]');
+    const pageLinks = document.querySelectorAll('a[href="pages/projects/project.html"], a[href="certificate.html"]');
     pageLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -405,3 +405,4 @@ window.addEventListener('keydown', (e) => {
         konamiIndex = 0;
     }
 });
+);
