@@ -1,4 +1,4 @@
-# 🌌 Fairuz Aghna Mulya - Game Developer Portfolio
+# 🌌 Fairuz Aghna Mulya - Portfolio
 
 Welcome to the source code of my **personal portfolio website**, built to showcase my journey, projects, skills, and passion as a **Game Developer & Programmer**.  
 This portfolio serves as my digital identity and creative playground.
