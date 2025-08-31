@@ -29,9 +29,3 @@ This portfolio serves as my digital identity and creative playground.
 - **Google Fonts** → Custom typography  
 
 ---
-
-## ⚡ How to Run Locally
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/fairuzaghnamulya-id/cv-fairuzaghnamulya.git
